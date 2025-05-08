@@ -1,0 +1,29 @@
+{% extends "accounts/base_auth.html" %}
+
+{% block title %}Logowanie - Krok 1{% endblock %}
+
+{% block content %}
+    <div class="form-column" style="width:100%; max-width: 450px; margin: 0 auto;">
+        <h2>Krok 1: Podaj dane logowania</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <ul class="errorlist">{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}<ul class="errorlist">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn-submit">Dalej</button>
+        </form>
+        <p style="margin-top: 20px; text-align: center;">
+            Nie masz konta? <a href="{% url 'register' %}" class="form-link">Zarejestruj się</a>
+        </p>
+        <p style="text-align: center;">
+            <a href="{% url 'login_register_page' %}" class="form-link">Powrót do głównej strony logowania</a>
+        </p>
+    </div>
+{% endblock %}

@@ -1,0 +1,306 @@
+
+:root {
+    --dark-bg: #2d2d30;           
+    --container-bg: #3c3c40;     
+    --text-color: #e0e0e0;        
+    --text-color-strong: #ffffff; 
+    --accent-purple: #8a2be2;     
+    --accent-purple-darker: #7324b8; 
+    --input-bg: #444449;          
+    --input-border: #55555e;        
+    --focus-glow-color: rgba(138, 43, 226, 0.35); 
+    --link-color: var(--accent-purple);
+    --error-text: #ff9a9a;        
+    --error-bg: #5c1e1e;          
+    --success-bg: #1a4d2e;        
+    --success-text: #a3e9a4;    
+    --info-bg: #1a3e5c;           
+    --info-text: #d1ecf1;         
+    --warning-bg: #664d03;       
+    --warning-text: #fff3cd;      
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    line-height: 1.6; 
+}
+
+.auth-container {
+    background-color: var(--container-bg);
+    padding: 45px; 
+    border-radius: 12px; 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); 
+    width: 100%;
+    max-width: 900px;
+    border: 1px solid var(--input-border); 
+}
+
+.logo {
+   margin-bottom: 35px; 
+   text-align: center; 
+}
+
+.forms-wrapper {
+    display: flex;
+    gap: 50px; 
+}
+
+.form-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-column h2 {
+    font-size: 1.7em; 
+    color: var(--text-color-strong);
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-align: center; 
+    border-bottom: 1px solid var(--input-border); 
+    padding-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500; 
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-size: 0.95em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="url"],
+.form-group input[type="number"],
+.form-group input[type="tel"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 14px; 
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg); 
+    color: var(--text-color); 
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.form-group input::placeholder, 
+.form-group textarea::placeholder {
+    color: #888;
+    opacity: 0.7;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="url"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="tel"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 0.2rem var(--focus-glow-color);
+    background-color: #4a4a50; 
+}
+
+.form-group.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 18px;
+    padding: 5px 0; 
+}
+
+.form-group.checkbox-group input[type="checkbox"] {
+    margin-right: 12px;
+    width: 16px; 
+    height: 16px;
+    vertical-align: middle;
+    appearance: none; 
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative; 
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.form-group.checkbox-group input[type="checkbox"]:checked {
+    background-color: var(--accent-purple);
+    border-color: var(--accent-purple);
+}
+
+.form-group.checkbox-group input[type="checkbox"]:checked::after { 
+    content: '✔';
+    font-size: 12px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-group.checkbox-group input[type="checkbox"]:focus {
+     box-shadow: 0 0 0 0.2rem var(--focus-glow-color);
+}
+
+
+.form-group.checkbox-group label {
+    margin-bottom: 0;
+    font-weight: normal;
+    font-size: 0.9em;
+    color: var(--text-color);
+    cursor: pointer;
+    flex-grow: 1;
+    line-height: 1.4; 
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 14px; 
+    background-color: var(--accent-purple);
+    color: var(--text-color-strong);
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 600; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 10px; 
+}
+
+.btn-submit:hover {
+    background-color: var(--accent-purple-darker);
+}
+
+.btn-submit:active {
+    transform: scale(0.98); 
+}
+
+.form-link {
+    display: block;
+    text-align: left;
+    margin-top: 15px; 
+    color: var(--link-color);
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.3s ease;
+}
+
+.form-link:hover {
+    text-decoration: underline;
+    color: #b19cd9; 
+}
+
+/* Style dla wiadomości systemowych (messages) */
+.messages {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.message-item {
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+.message-item.success {
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border-color: #3c884f;
+}
+
+.message-item.error,
+.message-item.danger {
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border-color: #a53838;
+}
+
+.message-item.info {
+    background-color: var(--info-bg);
+    color: var(--info-text);
+    border-color: #3b7aaa;
+}
+
+.message-item.warning {
+    background-color: var(--warning-bg);
+    color: var(--warning-text);
+    border-color: #b9974e;
+}
+
+.message-item:not(.success):not(.error):not(.danger):not(.info):not(.warning) {
+    background-color: #495057;
+    color: #e9ecef;
+    border-color: #6c757d;
+}
+
+/* Style dla list błędów formularzy */
+.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 0 0;
+    color: var(--error-text);
+    font-size: 0.9em;
+    width: 100%;
+}
+
+.errorlist li {
+    padding: 3px 0;
+}
+
+/* Błędy ogólne formularza (non_field_errors) */
+.form-column > form > .errorlist {
+    margin-bottom: 18px;
+    font-size: 0.95em;
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid #a53838;
+    padding: 12px 15px;
+    border-radius: 6px;
+}
+.form-column > form > .errorlist li {
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .auth-container {
+        padding: 25px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .forms-wrapper {
+        flex-direction: column;
+        gap: 35px;
+    }
+    .form-column h2 {
+        font-size: 1.5em;
+        padding-bottom: 10px;
+    }
+}

@@ -1,0 +1,27 @@
+{% extends "accounts/base_auth.html" %}
+
+{% block title %}Logowanie - Krok 3{% endblock %}
+
+{% block content %}
+    <div class="form-column" style="width:100%; max-width: 450px; margin: 0 auto;">
+        <h2>Krok 3: Kod TOTP</h2>
+        <p>Podaj 6-cyfrowy kod z Twojej aplikacji uwierzytelniającej.</p>
+        <form method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <ul class="errorlist">{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}<ul class="errorlist">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn-submit">Weryfikuj</button>
+        </form>
+        <p style="margin-top: 20px; text-align: center;">
+            <a href="{% url 'login_step1_credentials' %}" class="form-link">Zacznij logowanie od początku</a>
+        </p>
+    </div>
+{% endblock %}

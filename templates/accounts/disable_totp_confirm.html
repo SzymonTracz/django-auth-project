@@ -1,0 +1,16 @@
+{% extends "accounts/base_auth.html" %}
+
+{% block title %}Wyłącz TOTP{% endblock %}
+
+{% block content %}
+    <div class="form-column" style="width:100%; max-width: 450px; margin: 0 auto;">
+        <h2>Potwierdź Wyłączenie TOTP</h2>
+        <p>Czy na pewno chcesz wyłączyć uwierzytelnianie dwuskładnikowe (TOTP) dla swojego konta?</p>
+        <p>Twoje konto będzie mniej bezpieczne.</p>
+        <form method="post" style="margin-top: 20px;">
+            {% csrf_token %}
+            <button type="submit" class="btn-submit" style="background-color: #dc3545; border-color: #dc3545;">Tak, wyłącz TOTP</button>
+            <a href="{% url 'setup_totp' %}" class="btn-submit" style="background-color: #6c757d; border-color: #6c757d; display: inline-block; text-decoration: none; margin-top: 10px;">Anuluj</a>
+        </form>
+    </div>
+{% endblock %}

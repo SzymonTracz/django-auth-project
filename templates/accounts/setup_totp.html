@@ -1,0 +1,74 @@
+{% extends "accounts/base_auth.html" %}
+
+{% block title %}
+    {% if is_first_setup %}Krok Rejestracji: TOTP{% else %}Konfiguracja TOTP{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="form-column" style="width:100%; max-width: 550px; margin: 0 auto;">
+    <h2>
+        {% if is_first_setup %}
+            Krok Rejestracji: Skonfiguruj Uwierzytelnianie Dwuskładnikowe (TOTP)
+        {% else %}
+            Konfiguracja Uwierzytelniania Dwuskładnikowego (TOTP)
+        {% endif %}
+    </h2>
+
+    {% if is_totp_enabled and not is_first_setup %}
+        <p>Uwierzytelnianie dwuskładnikowe (TOTP) jest <strong>włączone</strong> dla Twojego konta.</p>
+        <form method="post" action="{% url 'disable_totp' %}" style="margin-top: 20px;">
+            {% csrf_token %}
+            <button type="submit" class="btn-submit" style="background-color: #dc3545; border-color: #dc3545;">Wyłącz TOTP</button>
+        </form>
+    {% else %}
+        <p>
+            {% if is_first_setup %}
+                Dla zwiększenia bezpieczeństwa Twojego nowego konta, prosimy o skonfigurowanie uwierzytelniania dwuskładnikowego. 
+            {% endif %}
+            Aby włączyć TOTP, zeskanuj poniższy kod QR za pomocą swojej aplikacji uwierzytelniającej (np. Google Authenticator, Authy, Microsoft Authenticator) lub wprowadź sekret ręcznie.
+        </p>
+
+        <div style="margin: 25px 0; text-align: center;">
+            <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="TOTP QR Code" style="border: 1px solid #ddd; padding: 5px; background-color: white;">
+        </div>
+        <p><strong>Lub wprowadź ten sekret ręcznie do aplikacji:</strong></p>
+        <p style="font-family: monospace; background-color: #f8f9fa; padding: 10px; border-radius: 4px; word-break: break-all;"><code>{{ totp_secret }}</code></p>
+
+        <hr style="margin: 20px 0;">
+
+        <p>Po dodaniu konta do aplikacji, wprowadź poniżej wygenerowany przez nią 6-cyfrowy kod, aby potwierdzić konfigurację i włączyć TOTP:</p>
+        <form method="post"> {# Action domyślnie na bieżący URL, czyli setup_totp #}
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <ul class="errorlist">{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}<ul class="errorlist">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn-submit">
+                {% if is_first_setup %}
+                    Zakończ Rejestrację i Włącz TOTP
+                {% else %}
+                    Włącz i Zweryfikuj TOTP
+                {% endif %}
+            </button>
+        </form>
+
+        {% if is_first_setup %}
+            <p style="margin-top: 15px; text-align: center;">
+                <a href="{{ settings.LOGIN_REDIRECT_URL }}" class="form-link">Pomiń konfigurację TOTP na razie (niezalecane)</a>
+            </p>
+        {% endif %}
+    {% endif %}
+
+    {% if not is_first_setup and user.is_authenticated %} {# Pokaż tylko jeśli zalogowany i nie pierwszy setup #}
+    <p style="margin-top: 30px; text-align: center;">
+        <a href="{% url 'profile' %}" class="form-link">Powrót do profilu</a>
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

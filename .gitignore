@@ -1,0 +1,42 @@
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+venv.bak/
+ENV.bak/
+
+# Database
+*.sqlite3
+db.sqlite3
+db.sqlite3-journal
+
+# Django stuff:
+*.log
+local_settings.py
+
+# IDE / Editor files
+.idea/
+.vscode/
+*.swp
+
+# Environment variables
+.env
+
+# Static files collected by collectstatic (jeśli używasz niestandardowej ścieżki)
+# static_root/
+# staticfiles/
+
+# Media files
+# media/
+
+# Operating system files
+.DS_Store
+Thumbs.db

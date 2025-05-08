@@ -1,0 +1,22 @@
+{% extends "accounts/base_auth.html" %} {# Lub inna Twoja baza #}
+{% load static %}
+
+{% block title %}Strona Główna{% endblock %}
+
+{% block content %}
+    <div class="form-column" style="width:100%; max-width: 600px; margin: 20px auto; text-align: center;">
+        <h2>Witaj na stronie głównej, {{ user.username }}!</h2>
+        
+        <p>Jesteś pomyślnie zalogowany.</p>
+        <p>To jest Twoja strona główna po zalogowaniu.</p>
+
+        <div style="margin-top: 30px;">
+            <a href="{% url 'profile' %}" class="btn-submit" style="margin-right: 10px; width: auto; padding: 10px 15px;">
+                Mój Profil
+            </a>
+            <a href="{% url 'logout' %}" class="btn-submit" style="background-color: #6c757d; border-color: #6c757d; width: auto; padding: 10px 15px;">
+                Wyloguj
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "accounts/base_auth.html" %}
+{% load static %}
+
+{% block title %}Logowanie / Rejestracja{% endblock %}
+
+{% block content %}
+<div class="forms-wrapper">
+    <div class="form-column login-form">
+        <h2>Mam już konto klienta</h2>
+        <form method="post" action="{% url 'login_step1_credentials' %}">
+            {% csrf_token %}
+            
+            {% if login_form.non_field_errors %}
+                <ul class="errorlist">
+                    {% for error in login_form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ login_form.username.id_for_label }}">{{ login_form.username.label }}</label>
+                {{ login_form.username }}
+                {% if login_form.username.errors %}<ul class="errorlist">{% for error in login_form.username.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ login_form.password.id_for_label }}">{{ login_form.password.label }}</label>
+                {{ login_form.password }}
+                {% if login_form.password.errors %}<ul class="errorlist">{% for error in login_form.password.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+            <a href="#" class="form-link">Nie pamiętasz hasła?</a>
+            <button type="submit" class="btn-submit" style="margin-top: 15px;">Zaloguj się</button>
+        </form>
+    </div>
+
+    <div class="form-column register-form">
+        <h2>Nie jestem jeszcze klientem</h2>
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+
+            {% if register_form.non_field_errors %}
+                <ul class="errorlist">{% for error in register_form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+
+            {# --- Indywidualne renderowanie pól formularza rejestracji --- #}
+            <div class="form-group">
+                <label for="{{ register_form.username.id_for_label }}">{{ register_form.username.label }}</label>
+                {{ register_form.username }}
+                {% comment %} Usunięte wyświetlanie help_text dla username, bo jest kontrolowane w forms.py {% endcomment %}
+                {% if register_form.username.errors %}<ul class="errorlist">{% for error in register_form.username.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ register_form.email.id_for_label }}">{{ register_form.email.label }}</label>
+                {{ register_form.email }}
+                {% if register_form.email.errors %}<ul class="errorlist">{% for error in register_form.email.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ register_form.first_name.id_for_label }}">{{ register_form.first_name.label }}</label>
+                {{ register_form.first_name }}
+                {% if register_form.first_name.errors %}<ul class="errorlist">{% for error in register_form.first_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ register_form.last_name.id_for_label }}">{{ register_form.last_name.label }}</label>
+                {{ register_form.last_name }}
+                {% if register_form.last_name.errors %}<ul class="errorlist">{% for error in register_form.last_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ register_form.password.id_for_label }}">{{ register_form.password.label }}</label>
+                {{ register_form.password }}
+                {% if register_form.password.errors %}<ul class="errorlist">{% for error in register_form.password.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ register_form.password_confirm.id_for_label }}">{{ register_form.password_confirm.label }}</label>
+                {{ register_form.password_confirm }}
+                {% if register_form.password_confirm.errors %}<ul class="errorlist">{% for error in register_form.password_confirm.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+
+            <div class="form-group checkbox-group">
+                {{ register_form.terms_accepted }}
+                <label for="{{ register_form.terms_accepted.id_for_label }}">{{ register_form.terms_accepted.label }}</label>
+                {% if register_form.terms_accepted.errors %}<div class="errorlist" style="width: 100%; margin-left: 0; margin-top: 5px;">{% for error in register_form.terms_accepted.errors %}<li>{{ error }}</li>{% endfor %}</div>{% endif %}
+            </div>
+             <div class="form-group checkbox-group">
+                {{ register_form.newsletter_consent }}
+                <label for="{{ register_form.newsletter_consent.id_for_label }}">{{ register_form.newsletter_consent.label }}</label>
+                {% if register_form.newsletter_consent.errors %}<div class="errorlist" style="width: 100%; margin-left: 0; margin-top: 5px;">{% for error in register_form.newsletter_consent.errors %}<li>{{ error }}</li>{% endfor %}</div>{% endif %}
+            </div>
+            {# --- Koniec indywidualnego renderowania --- #}
+
+            <button type="submit" class="btn-submit">Załóż konto</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "accounts/base_auth.html" %} {# Zakładając, że masz plik bazowy #}
+{% load static %} {# Jeśli używasz static w tym szablonie #}
+
+{% block title %}Mój Profil{% endblock %}
+
+{% block content %}
+    <div class="form-column" style="width:100%; max-width: 600px; margin: 20px auto;">
+        <h2>Witaj na swoim profilu, {{ user.username }}!</h2>
+        
+        <p>To jest Twoja strona profilu. Możesz tu dodać więcej informacji i funkcjonalności.</p>
+
+        <ul style="list-style-type: none; padding-left: 0; margin-top: 20px;">
+            <li style="margin-bottom: 10px;">
+                <strong>Nazwa użytkownika:</strong> {{ user.username }}
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Email:</strong> {{ user.email }}
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Imię:</strong> {{ user.first_name|default:"Nie podano" }}
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Nazwisko:</strong> {{ user.last_name|default:"Nie podano" }}
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Uwierzytelnianie dwuskładnikowe (TOTP):</strong> 
+                {% if user.is_totp_enabled %}
+                    <span style="color: green;">Włączone</span>
+                {% else %}
+                    <span style="color: red;">Wyłączone</span>
+                {% endif %}
+            </li>
+        </ul>
+
+        <div style="margin-top: 30px;">
+            <a href="{% url 'setup_totp' %}" class="btn-submit" style="margin-right: 10px; width: auto; padding: 10px 15px;">
+                {% if user.is_totp_enabled %}Zarządzaj TOTP{% else %}Skonfiguruj TOTP{% endif %}
+            </a>
+            <a href="{% url 'logout' %}" class="btn-submit" style="background-color: #6c757d; border-color: #6c757d; width: auto; padding: 10px 15px;">Wyloguj</a>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "accounts/base_auth.html" %}
+
+{% block title %}Rejestracja{% endblock %}
+
+{% block content %}
+    <div class="form-column" style="width:100%; max-width: 450px; margin: 0 auto;">
+      <h2>Zarejestruj nowe konto</h2>
+      <form method="post" action="{% url 'register' %}">
+          {% csrf_token %}
+          
+          {% if form.non_field_errors %}
+              <ul class="errorlist">{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+          {% endif %}
+
+          {% for field in form %}
+              <div class="form-group {% if field.field.widget.input_type == 'checkbox' %}checkbox-group{% endif %}">
+                  {% if field.field.widget.input_type == 'checkbox' %}
+                      {{ field }}
+                      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  {% else %}
+                      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                      {{ field }}
+                  {% endif %}
+                  {% if field.errors %}<ul class="errorlist">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+              </div>
+          {% endfor %}
+          <button type="submit" class="btn-submit">Załóż konto</button>
+      </form>
+      <p style="margin-top: 20px; text-align: center;">
+          Masz już konto? <a href="{% url 'login_register_page' %}" class="form-link">Zaloguj się</a>
+      </p>
+    </div>
+{% endblock %}
